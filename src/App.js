@@ -20,7 +20,7 @@ export default function App() {
 function Thumbnail({ setPlayVideo }) {
   return (
     <>
-      <video autoPlay loop className="preview-video">
+      <video className="preview-video" autoPlay loop muted>
         <source src={thumbnail} type="video/mp4" />
       </video>
       <button className="btn btn-primary" onClick={() => setPlayVideo(true)}>
@@ -40,40 +40,21 @@ function Video() {
 
   useEffect(() => {
     const { current: video } = videoRef;
-    let interval;
 
     const handleLoadedMetadata = () => {
       setTotalLength(video.duration);
     };
 
-    const handlePlay = () => {
-      interval = setInterval(() => {
-        setCurrentTime(video.currentTime);
-      }, 300);
-    };
-
-    // const handleTimeUpdate = () => {};
-
-    const handleSeeking = () => {
-      setShowBeggining(false);
-      setShowEnding(false);
-    };
-
-    const handleEnded = () => {
-      clearInterval(interval);
+    const handleTimeUpdate = () => {
+      setCurrentTime(video.currentTime);
     };
 
     video.addEventListener("loadedmetadata", handleLoadedMetadata);
-    video.addEventListener("play", handlePlay);
-    video.addEventListener("seeking", handleSeeking);
-    video.addEventListener("ended", handleEnded);
+    video.addEventListener("timeupdate", handleTimeUpdate);
 
     return () => {
-      clearInterval(interval);
       video.removeEventListener("loadedmetadata", handleLoadedMetadata);
-      video.removeEventListener("play", handlePlay);
-      video.removeEventListener("seeking", handleSeeking);
-      video.removeEventListener("ended", handleEnded);
+      video.removeEventListener("timeupdate", handleTimeUpdate);
     };
   }, []);
 
@@ -91,7 +72,7 @@ function Video() {
 
   return (
     <div className="video-container">
-      <video ref={videoRef} autoPlay controls>
+      <video ref={videoRef} autoPlay controls muted>
         <source src={gato} type="video/mp4" />
       </video>
       {showBeggining && (
