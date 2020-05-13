@@ -4,8 +4,8 @@ import "semantic-styles";
 import "./App.css";
 
 import gato from "../src/assets/gato.mp4";
-import thumbnail from "../src/assets/thumbnail.mp4";
 import kitty from "../src/assets/kitty.png";
+import thumbnail from "../src/assets/thumbnail.mp4";
 
 export default function App() {
   const [playVideo, setPlayVideo] = useState(false);
@@ -51,6 +51,8 @@ function Video() {
         setCurrentTime(video.currentTime);
       }, 300);
     };
+
+    // const handleTimeUpdate = () => {};
 
     const handleSeeking = () => {
       setShowBeggining(false);
