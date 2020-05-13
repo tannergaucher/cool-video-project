@@ -1,20 +1,20 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from 'react'
 
-import "semantic-styles";
-import "./App.css";
+import 'semantic-styles'
+import './App.css'
 
-import gato from "../src/assets/gato.mp4";
-import kitty from "../src/assets/kitty.png";
-import thumbnail from "../src/assets/thumbnail.mp4";
+import gato from '../src/assets/gato.mp4'
+import kitty from '../src/assets/kitty.png'
+import thumbnail from '../src/assets/thumbnail.mp4'
 
 export default function App() {
-  const [playVideo, setPlayVideo] = useState(false);
+  const [playVideo, setPlayVideo] = useState(false)
   return (
     <div className="page padding container">
       <h1 className="title">Video Pawject</h1>
       {playVideo ? <Video /> : <Thumbnail setPlayVideo={setPlayVideo} />}
     </div>
-  );
+  )
 }
 
 function Thumbnail({ setPlayVideo }) {
@@ -27,62 +27,62 @@ function Thumbnail({ setPlayVideo }) {
         Play Meow
       </button>
     </>
-  );
+  )
 }
 
 function Video() {
-  const [currentTime, setCurrentTime] = useState("");
-  const [totalLength, setTotalLength] = useState("");
-  const [showBeggining, setShowBeggining] = useState(false);
-  const [showEnding, setShowEnding] = useState(false);
+  const [currentTime, setCurrentTime] = useState('')
+  const [totalLength, setTotalLength] = useState('')
+  const [showBeginning, setShowBeginning] = useState(false)
+  const [showEnding, setShowEnding] = useState(false)
 
-  const videoRef = useRef(null);
+  const videoRef = useRef(null)
 
   useEffect(() => {
-    const { current: video } = videoRef;
+    const { current: video } = videoRef
 
     const handleLoadedMetadata = () => {
-      setTotalLength(video.duration);
-    };
+      setTotalLength(video.duration)
+    }
 
     const handleTimeUpdate = () => {
-      setCurrentTime(video.currentTime);
-    };
+      setCurrentTime(video.currentTime)
+    }
 
-    video.addEventListener("loadedmetadata", handleLoadedMetadata);
-    video.addEventListener("timeupdate", handleTimeUpdate);
+    video.addEventListener('loadedmetadata', handleLoadedMetadata)
+    video.addEventListener('timeupdate', handleTimeUpdate)
 
     return () => {
-      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
-      video.removeEventListener("timeupdate", handleTimeUpdate);
-    };
-  }, []);
+      video.removeEventListener('loadedmetadata', handleLoadedMetadata)
+      video.removeEventListener('timeupdate', handleTimeUpdate)
+    }
+  }, [])
 
   useEffect(() => {
     if (currentTime < 3) {
-      setShowBeggining(true);
-      setShowEnding(false);
+      setShowBeginning(true)
+      setShowEnding(false)
     }
     if (currentTime > 3) {
-      setShowBeggining(false);
-      setShowEnding(false);
+      setShowBeginning(false)
+      setShowEnding(false)
     }
     if (currentTime && currentTime >= totalLength - 3) {
-      setShowEnding(true);
+      setShowEnding(true)
     }
-  }, [currentTime, totalLength]);
+  }, [currentTime, totalLength])
 
   return (
     <div className="video-container">
       <video ref={videoRef} autoPlay controls muted>
         <source src={gato} type="video/mp4" />
       </video>
-      {showBeggining && (
+      {showBeginning && (
         <img className="animated beginning" src={kitty} alt="kitty"></img>
       )}
       {showEnding && (
         <img className="animated ending" src={kitty} alt="kitty"></img>
       )}
     </div>
-  );
+  )
 }
