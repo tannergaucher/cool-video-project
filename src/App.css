@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap");
+
+:root {
+  --sans: "Inter", sans-serif;
+}
+
+video {
+  width: 100%;
+  border-radius: var(--radius);
+  box-shadow: var(--elevation-3);
+}
+
+.preview-video {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.btn {
+  width: 100%;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  font-size: var(--space-md);
+}
+
+.title {
+  text-align: center;
+  margin: var(--space-md);
+}
+
+.video-container {
+  position: relative;
+}
+
+.beginning {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  padding: var(--space-sm);
+}
+
+.ending {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  padding: var(--space-sm);
+}
+
+.animated {
+  animation-name: animatebottom;
+  animation-duration: 0.6s;
+}
+
+@keyframes animatebottom {
+  from {
+    bottom: -30px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
