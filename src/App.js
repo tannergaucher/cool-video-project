@@ -61,9 +61,11 @@ function Video() {
   useEffect(() => {
     if (currentTime < 3) {
       setShowBeggining(true);
+      setShowEnding(false);
     }
     if (currentTime > 3) {
       setShowBeggining(false);
+      setShowEnding(false);
     }
     if (currentTime && currentTime >= totalLength - 3) {
       setShowEnding(true);
